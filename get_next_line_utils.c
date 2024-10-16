@@ -6,7 +6,7 @@
 /*   By: psevilla <psevilla@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/24 18:46:04 by gmacias-          #+#    #+#             */
-/*   Updated: 2024/10/15 20:50:54 by psevilla         ###   ########.fr       */
+/*   Updated: 2024/10/16 19:30:36 by psevilla         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,10 +28,12 @@ char	*ft_strenter(char *buf)
 	int i;
 
 	i = 0;
-	while (buf[i] && buf[i] != '\n')
+	while (buf[i])
+	{
+		if (buf[i] == '\n')
+			return (buf + i);
 		i++;
-	if (buf[i] == '\n')
-		return (buf + i);
+	}	
 	return (NULL);
 }
 

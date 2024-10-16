@@ -4,7 +4,7 @@
 #include <fcntl.h> // para open esto hay que quitarlo para entregar
 #include <stdlib.h>
 
-#define BUFFER_SIZE 42
+#define BUFFER_SIZE 20
 
 int		ft_strlen(char *s)
 {
@@ -21,10 +21,12 @@ char	*ft_strenter(char *buf)
 	int i;
 
 	i = 0;
-	while (buf[i] && buf[i] != '\n')
+	while (buf[i])
+	{
+		if (buf[i] == '\n')
+			return (buf + i);
 		i++;
-	if (buf[i] == '\n')
-		return (buf + i);
+	}	
 	return (NULL);
 }
 
@@ -42,82 +44,96 @@ char	*ft_calloc(size_t n, size_t size)
 	return (s);
 }
 
+// Concatena en buf buf+temp y libera temp.
 char	*ft_strjoin(char *buf, char *temp)
 {
 	char	*s;
 	int		i;
+	char	*temp_cpy;
 
+	temp_cpy = temp;
 	s = (char *)malloc(sizeof(char) * (ft_strlen(buf) + ft_strlen(temp) + 1));
 	if (!s)
 		return (NULL);
 	i = 0;
 	while (*buf)
 			s[i++] = *buf++;
-	while (*temp)
+	while (*temp && *temp != '\n')
 		s[i++] = *temp++;
+	if (*temp == '\n')
+		s[i++] = '\n';
 	s[i] = '\0';
 	return (s);
 }
+char	*ft_strdup(const char *buf)
+{
+	size_t	size;
+	char	*s;
+	char	*aux;
 
-
-
-
-
-
+	size = ft_strlen((char *)buf) + 1;
+	s = ft_calloc(size, size);
+	if (s == NULL)
+		return (NULL);
+	aux = s;
+	while (*buf)
+		*s++ = *buf++;
+	return (aux);
+}
 
 char	*ft_new_line(int fd, char *buf)
 {
-	int		chars; //Número de caracteres leidos
+	int		chars; //Número de bytes leidos
 	char	*temp; //String que almacena carácteres leidos de fd
 
 	if (!buf)
 		buf = ft_calloc(1, 1);
-	chars = 1;
 	temp = ft_calloc(BUFFER_SIZE + 1, sizeof(char));
-	while (chars)
+	while (1)
 	{
-		chars = read(fd, temp, BUFFER_SIZE + 1);
+		chars = read(fd, temp, BUFFER_SIZE);
 		if (chars < 0) //Si falla la lectura se libera la memoria
 		{
 			free(temp);
 			free(buf);
 			return (NULL);
 		}
-		temp[chars] = '\0';
 		buf = ft_strjoin(buf, temp); //Concatenar buf y temp en buf
-		if (ft_strenter(buf)) //Si se encuentra un salto de línea en buf, se para de leer.
+		if (ft_strenter(buf) || chars == 0) //Parar de leer si se encuentra salto de línea o fina del archivo
 			break ;
 	}
-	free (temp);
+	free(temp);
 	return (buf);
 }
-
-int main(void)
+char	*get_next_line(int fd)
 {
-    int fd;
-    char *s = NULL;
+	static char *buf;
+	char		*line;
+	char		*new_line;
+	
+	if (fd < 0 || BUFFER_SIZE < 0)
+		return (NULL);
+	
+	buf = ft_new_line(fd, buf);
+	if (!buf)
+		return (NULL);
+	new_line = ft_strenter(buf);
+	if (new_line)
+	{
+		*new_line = '\0';
+		line = ft_strdup(buf);
+		if (!line)
+			return (NULL);
+		buf = new_line + 1;
+		return (line);
+	}
+	return (NULL);
+}
 
-    // Abre el archivo prueba.txt en modo lectura
-    fd = open("prueba.txt", O_RDONLY);
-    if (fd < 0) // Verifica si se abre correctamente el archivo
-    {
-        perror("Error opening file");
-        return 1;
-    }
+int	main(void)
+{
+	int fd = open("prueba.txt", O_RDONLY);
 
-    // Llama a ft_new_line para leer hasta la primera nueva línea
-    s = ft_new_line(fd, s);
-    if (s) // Verifica si se leyó correctamente
-    {
-        printf("Contenido leído: %s\n", s);
-        free(s); // Libera la memoria asignada
-    }
-    else
-    {
-        printf("No se pudo leer ninguna línea.\n");
-    }
-
-    // Cierra el descriptor de archivo
-    close(fd);
-    return 0;
+	printf("%s", get_next_line(fd));
+	return (0);
 }
