@@ -6,7 +6,7 @@
 /*   By: piesito <piesito@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/15 16:55:07 by psevilla          #+#    #+#             */
-/*   Updated: 2024/10/17 22:04:04 by piesito          ###   ########.fr       */
+/*   Updated: 2024/10/17 22:34:12 by piesito          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,7 +52,7 @@ char	*ft_new_line(int fd, char *buf)
 			return (ft_free(chars, buf, temp));
 		temp[chars] = '\0';
 		buf = ft_strjoin(buf, temp);
-		if (ft_strenter(buf) || chars == 0)
+		if (ft_strenter(buf))
 			break ;
 	}
 	free(temp);

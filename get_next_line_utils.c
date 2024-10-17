@@ -6,7 +6,7 @@
 /*   By: piesito <piesito@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/24 18:46:04 by gmacias-          #+#    #+#             */
-/*   Updated: 2024/10/17 22:04:13 by piesito          ###   ########.fr       */
+/*   Updated: 2024/10/17 22:27:46 by piesito          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,14 +24,11 @@ int	ft_strlen(char *s)
 
 char	*ft_strenter(char *buf)
 {
-	int	i;
-
-	i = 0;
-	while (buf[i])
+	while (*buf)
 	{
-		if (buf[i] == '\n')
-			return (buf + i);
-		i++;
+		if (*buf == '\n')
+			return (buf);
+		buf++;
 	}
 	return (NULL);
 }
@@ -46,7 +43,7 @@ char	*ft_calloc(size_t n, size_t size)
 		return (NULL);
 	i = 0;
 	while (i < n * size)
-		((char *)s)[i++] = 0;
+		s[i++] = 0;
 	return (s);
 }
 
@@ -55,7 +52,7 @@ char	*ft_strjoin(char *buf, char *temp)
 	char	*s;
 	int		i;
 
-	s = (char *)malloc(sizeof(char) * (ft_strlen(buf) + ft_strlen(temp) + 1));
+	s = malloc(sizeof(char) * (ft_strlen(buf) + ft_strlen(temp) + 1));
 	if (!s)
 		return (NULL);
 	i = 0;
@@ -69,12 +66,10 @@ char	*ft_strjoin(char *buf, char *temp)
 
 char	*ft_strdup(const char *buf)
 {
-	size_t	size;
 	char	*s;
 	char	*aux;
 
-	size = ft_strlen((char *)buf) + 1;
-	s = ft_calloc(size, sizeof(char));
+	s = ft_calloc(ft_strlen((char *)buf) + 1, sizeof(char));
 	if (s == NULL)
 		return (NULL);
 	aux = s;

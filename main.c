@@ -6,7 +6,7 @@
 /*   By: piesito <piesito@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/17 22:03:49 by piesito           #+#    #+#             */
-/*   Updated: 2024/10/17 22:15:12 by piesito          ###   ########.fr       */
+/*   Updated: 2024/10/17 22:45:02 by piesito          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,7 @@ int	main(void)
 	{
 		line = get_next_line(fd);
 		if (line)
-			printf("Linea %d: %s\n", i, line);
+			printf("Archivo 1: %s\n", line);
 		i++;
 	}
 	return (0);
