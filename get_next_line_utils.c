@@ -6,10 +6,9 @@
 /*   By: piesito <piesito@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/24 18:46:04 by gmacias-          #+#    #+#             */
-/*   Updated: 2024/10/17 21:11:26 by piesito          ###   ########.fr       */
+/*   Updated: 2024/10/17 22:04:13 by piesito          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
-
 
 #include "get_next_line.h"
 
@@ -51,12 +50,11 @@ char	*ft_calloc(size_t n, size_t size)
 	return (s);
 }
 
-// Concatena en buf buf+temp y libera temp.
 char	*ft_strjoin(char *buf, char *temp)
 {
 	char	*s;
 	int		i;
-	
+
 	s = (char *)malloc(sizeof(char) * (ft_strlen(buf) + ft_strlen(temp) + 1));
 	if (!s)
 		return (NULL);
