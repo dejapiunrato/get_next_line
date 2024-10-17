@@ -6,7 +6,7 @@
 /*   By: piesito <piesito@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/17 22:03:49 by piesito           #+#    #+#             */
-/*   Updated: 2024/10/17 22:08:04 by piesito          ###   ########.fr       */
+/*   Updated: 2024/10/17 22:15:12 by piesito          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,8 @@ int	main(void)
 	while (line)
 	{
 		line = get_next_line(fd);
-		printf("Linea %d: %s\n", i, line);
+		if (line)
+			printf("Linea %d: %s\n", i, line);
 		i++;
 	}
 	return (0);
