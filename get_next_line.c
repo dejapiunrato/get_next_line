@@ -6,7 +6,7 @@
 /*   By: piesito <piesito@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/15 16:55:07 by psevilla          #+#    #+#             */
-/*   Updated: 2024/10/17 22:34:12 by piesito          ###   ########.fr       */
+/*   Updated: 2024/10/17 23:06:08 by piesito          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,17 +20,14 @@ char	*ft_free(int chars, char *buf, char *temp)
 		free(temp);
 		return (NULL);
 	}
-	else
+	if (buf)
 	{
-		if (buf)
-		{
-			free (temp);
-			return (buf);
-		}
-		free(buf);
-		free(temp);
-		return (NULL);
+		free (temp);
+		return (buf);
 	}
+	free(buf);
+	free(temp);
+	return (NULL);
 	return (NULL);
 }
 
