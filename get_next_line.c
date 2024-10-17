@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   get_next_line.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: psevilla <psevilla@student.42.fr>          +#+  +:+       +#+        */
+/*   By: piesito <piesito@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/15 16:55:07 by psevilla          #+#    #+#             */
-/*   Updated: 2024/10/16 21:55:14 by psevilla         ###   ########.fr       */
+/*   Updated: 2024/10/17 21:12:21 by piesito          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,7 +65,7 @@ char	*get_next_line(int fd)
 	char		*line;
 	char		*new_line;
 
-	if (fd < 0 || BUFFER_SIZE < 0)
+	if (fd < 0 || BUFFER_SIZE <= 0)
 		return (NULL);
 	buf = ft_new_line(fd, buf);
 	if (!buf)
@@ -77,7 +77,7 @@ char	*get_next_line(int fd)
 		line = ft_strdup(buf);
 		if (!line)
 			return (NULL);
-		buf = new_line + 1;
+		buf = ft_strdup(new_line + 1);
 		return (line);
 	}
 	if (*buf)
