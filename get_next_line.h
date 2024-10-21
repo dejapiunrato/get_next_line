@@ -6,7 +6,7 @@
 /*   By: piesito <piesito@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/15 16:52:33 by psevilla          #+#    #+#             */
-/*   Updated: 2024/10/17 22:45:50 by piesito          ###   ########.fr       */
+/*   Updated: 2024/10/21 20:14:22 by piesito          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,10 +16,12 @@
 # include <unistd.h>
 # include <stdio.h>
 # include <string.h>
-# include <fcntl.h> //para open esto hay que quitarlo para entregar
+# include <fcntl.h>
 # include <stdlib.h>
 
-# define BUFFER_SIZE 1000
+# ifndef BUFFER_SIZE
+#  define BUFFER_SIZE 1000
+# endif
 
 int		ft_strlen(char *s);
 char	*ft_strenter(char *buf);
