@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   get_next_line.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: piesito <piesito@student.42.fr>            +#+  +:+       +#+        */
+/*   By: psevilla <psevilla@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/15 16:55:07 by psevilla          #+#    #+#             */
-/*   Updated: 2024/10/17 23:06:08 by piesito          ###   ########.fr       */
+/*   Updated: 2024/10/22 18:57:43 by psevilla         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,20 +35,22 @@ char	*ft_new_line(int fd, char *buf)
 {
 	int		chars;
 	char	*temp;
+	char	*new_buf;
 
 	if (!buf)
 		buf = ft_calloc(1, 1);
 	temp = ft_calloc(BUFFER_SIZE + 1, sizeof(char));
 	if (!temp)
 		return (NULL);
-	chars = 1;
-	while (chars)
+	while (1)
 	{
 		chars = read(fd, temp, BUFFER_SIZE);
 		if (chars <= 0)
 			return (ft_free(chars, buf, temp));
 		temp[chars] = '\0';
-		buf = ft_strjoin(buf, temp);
+		new_buf = ft_strjoin(buf, temp);
+		free(buf);
+		buf = new_buf;
 		if (ft_strenter(buf))
 			break ;
 	}
@@ -60,6 +62,7 @@ char	*ft_line(char **buf)
 {
 	char	*line;
 	char	*new_line;
+	char	*new_buf;
 
 	new_line = ft_strenter(*buf);
 	if (new_line)
@@ -68,7 +71,9 @@ char	*ft_line(char **buf)
 		line = ft_strdup(*buf);
 		if (!line)
 			return (NULL);
-		*buf = ft_strdup(new_line + 1);
+		new_buf = ft_strdup(new_line + 1);
+		free(*buf);
+		*buf = new_buf;
 		return (line);
 	}
 	if (**buf)
