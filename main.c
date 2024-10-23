@@ -6,7 +6,7 @@
 /*   By: piesito <piesito@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/17 22:03:49 by piesito           #+#    #+#             */
-/*   Updated: 2024/10/17 23:05:43 by piesito          ###   ########.fr       */
+/*   Updated: 2024/10/23 19:19:49 by piesito          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,11 +25,13 @@ int	main(void)
 		printf("Error al abrir el archivo\n");
 		return (1);
 	}
+	line = get_next_line(fd);
 	while (line)
 	{
-		line = get_next_line(fd);
 		if (line)
 			printf("Linea %d: %s\n", i, line);
+		free (line);
+		line = get_next_line(fd);
 		i++;
 	}
 	return (0);
