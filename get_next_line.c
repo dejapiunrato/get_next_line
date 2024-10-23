@@ -12,7 +12,7 @@
 
 	#include "get_next_line.h"
 
-	char	*ft_free(int chars, char *buf, char *temp)
+	char	*ft_free(char *buf, char *temp)
 	{
 		free(buf);
 		free(temp);
@@ -32,7 +32,7 @@
 		{
 			chars = read(fd, temp, BUFFER_SIZE);
 			if (chars < 0)
-				return (ft_free(chars, buf, temp));
+				return (ft_free(buf, temp));
 			temp[chars] = '\0';
 			new_buf = ft_strjoin(buf, temp);
 			free(buf);

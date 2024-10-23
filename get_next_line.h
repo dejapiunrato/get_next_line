@@ -6,7 +6,7 @@
 /*   By: piesito <piesito@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/15 16:52:33 by psevilla          #+#    #+#             */
-/*   Updated: 2024/10/21 20:14:22 by piesito          ###   ########.fr       */
+/*   Updated: 2024/10/23 19:25:26 by piesito          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,7 @@ char	*ft_strenter(char *buf);
 char	*ft_calloc(size_t n, size_t size);
 char	*ft_strjoin(char *buf, char *temp);
 char	*ft_strdup(const char *buf);
-char	*ft_free(int chars, char *buf, char *temp);
+char	*ft_free(char *buf, char *temp);
 char	*ft_new_line(int fd, char *buf);
 char	*ft_line(char **buf);
 char	*get_next_line(int fd);
