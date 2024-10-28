@@ -32,5 +32,6 @@ char	*ft_free(char *buf, char *temp);
 char	*ft_new_line(int fd, char *buf);
 char	*ft_line(char **buf);
 char	*get_next_line(int fd);
+char	*ft_substr(char *s, unsigned int start, size_t len);
 
 #endif
