@@ -3,23 +3,23 @@
 /*                                                        :::      ::::::::   */
 /*   get_next_line.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: piesito <piesito@student.42.fr>            +#+  +:+       +#+        */
+/*   By: psevilla <psevilla@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/15 16:55:07 by psevilla          #+#    #+#             */
-/*   Updated: 2024/10/23 19:06:58 by piesito          ###   ########.fr       */
+/*   Updated: 2024/10/29 20:58:25 by psevilla         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "get_next_line.h"
 
-char	*ft_substr(char *s, unsigned int start, size_t len)
+char	*ft_substr(char *s, int start, int len)
 {
-	size_t	i;
+	int		i;
 	char	*sub;
 
 	if (!s)
 		return (NULL);
-	if (start > ft_strlen(s))
+	if (start >= ft_strlen(s))
 		return (ft_strdup(""));
 	if (ft_strlen(s) - start < len)
 		len = ft_strlen(s) - start;
@@ -32,7 +32,7 @@ char	*ft_substr(char *s, unsigned int start, size_t len)
 		sub[i] = s[start + i];
 		i++;
 	}
-	sub[i] = '\0';
+	sub[len] = '\0';
 	return (sub);
 }
 
@@ -52,7 +52,9 @@ char	*ft_new_line(int fd, char *buf)
 	if (!buf)
 		buf = ft_calloc(1, sizeof(char));
 	temp = ft_calloc(BUFFER_SIZE + 1, sizeof(char));
-	while (1)
+	if (!temp)
+		return (ft_free(buf, NULL));
+	while (temp)
 	{
 		chars = read(fd, temp, BUFFER_SIZE);
 		if (chars < 0)
@@ -74,6 +76,8 @@ char	*ft_line(char **buf)
 	char	*new_line;
 	char	*new_buf;
 
+	if (!*buf)
+		return (NULL);
 	new_line = ft_strenter(*buf);
 	if (new_line)
 	{
@@ -90,20 +94,20 @@ char	*ft_line(char **buf)
 
 char	*get_next_line(int fd)
 {
-	static char	*buf;
+	static char	*buf = NULL;
 	char		*line;
 
 	if (fd < 0 || BUFFER_SIZE <= 0)
 		return (NULL);
 	buf = ft_new_line(fd, buf);
 	if (!buf)
-		return (NULL);
+		return (ft_free(buf, NULL));
 	line = ft_line(&buf);
 	if (!line && ft_strlen(buf) > 0)
 	{
 		line = ft_strdup(buf);
 		free (buf);
-		buf = NULL;
+		buf = ft_strdup("");
 	}
 	return (line);
 }

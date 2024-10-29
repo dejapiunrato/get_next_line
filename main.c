@@ -3,12 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: piesito <piesito@student.42.fr>            +#+  +:+       +#+        */
+/*   By: psevilla <psevilla@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/17 22:03:49 by piesito           #+#    #+#             */
-/*   Updated: 2024/10/23 19:19:49 by piesito          ###   ########.fr       */
+/*   Updated: 2024/10/29 20:23:44 by psevilla         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
+
+/* adiaz-lo */
 
 #include "get_next_line.h"
 
@@ -46,7 +48,7 @@ int	main(void)
 	int		fd;
 	char	*line;
 
-	fd = open("prueba.txt", O_RDONLY); // Asegúrate de que el archivo "test.txt" exista
+	fd = open("prueba.txt", 0); // Asegúrate de que el archivo "test.txt" exista
 	if (fd < 0)
 	{
 		perror("Error opening file");
@@ -60,6 +62,7 @@ int	main(void)
 		line = get_next_line(fd);
 	}
 	print_line(line);
+	printf("%s", line);
 	close(fd);
 	return (0);
 }

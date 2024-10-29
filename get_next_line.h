@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   get_next_line.h                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: piesito <piesito@student.42.fr>            +#+  +:+       +#+        */
+/*   By: psevilla <psevilla@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/15 16:52:33 by psevilla          #+#    #+#             */
-/*   Updated: 2024/10/23 19:25:26 by piesito          ###   ########.fr       */
+/*   Updated: 2024/10/29 19:20:34 by psevilla         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,6 +32,6 @@ char	*ft_free(char *buf, char *temp);
 char	*ft_new_line(int fd, char *buf);
 char	*ft_line(char **buf);
 char	*get_next_line(int fd);
-char	*ft_substr(char *s, unsigned int start, size_t len);
+char	*ft_substr(char *s, int start, int len);
 
 #endif
