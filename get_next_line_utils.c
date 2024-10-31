@@ -75,5 +75,4 @@ char	*ft_substr(char *s, unsigned int start, int len)
 	while (i < len)
 		sub[i++] = s[start + i];
 	return (sub);
-
 }
