@@ -23,4 +23,8 @@
 #  define BUFFER_SIZE 1000
 # endif
 
+# ifndef MAX_FD
+#  define MAX_FD
+# endif
+
 #endif
