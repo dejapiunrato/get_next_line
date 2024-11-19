@@ -10,8 +10,6 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-/* adiaz-lo */
-
 #include "get_next_line.h"
 
 #include <stdio.h>
@@ -66,4 +64,3 @@ int	main(void)
 	close(fd);
 	return (0);
 }
-

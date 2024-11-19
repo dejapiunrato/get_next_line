@@ -27,4 +27,20 @@
 #  define MAX_FD 1024
 # endif
 
+/* get_next_line */
+static char	*ft_new_line(int fd, char *buf, char *next_line);
+static char	*ft_next_line(char *line);
+char		*get_next_line(int fd);
+
+/* get_next_line_utils */
+int		ft_strlen(char *s);
+char	*ft_strchr(const char *s, int c);
+char	*ft_strdup(char *s);
+char	*ft_strjoin(char *s1, char *s2);
+char	*ft_substr(char *s, unsigned int start, int len);
+
+
+
+
+
 #endif

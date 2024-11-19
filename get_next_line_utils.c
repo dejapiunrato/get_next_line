@@ -14,14 +14,27 @@
 #include <stdio.h>
 #include <stdlib.h>
 
-size_t	ft_strlen(char *s)
+int	ft_strlen(char *s)
 {
-	size_t	i;
+	int	i;
 
 	i = 0;
 	while (s[i])
 		i++;
 	return (i);
+}
+
+char	*ft_strchr(const char *s, int c)
+{
+	while (*s)
+	{
+		if (*s == c)
+			return ((char *)s);
+		s++;
+	}
+	if (!*s)
+		return ((char *)s);
+	return (NULL);
 }
 
 char	*ft_strdup(char *s)
