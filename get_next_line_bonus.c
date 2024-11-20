@@ -1,16 +1,16 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   get_next_line.c                                    :+:      :+:    :+:   */
+/*   get_next_line_bonus.c                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: psevilla <psevilla@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/15 16:55:07 by psevilla          #+#    #+#             */
-/*   Updated: 2024/11/20 21:01:18 by psevilla         ###   ########.fr       */
+/*   Updated: 2024/11/20 21:03:11 by psevilla         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "get_next_line.h"
+#include "get_next_line_bonus.h"
 
 static char	*ft_new_line(int fd, char *buf, char *next_line)
 {
@@ -46,11 +46,14 @@ static char	*ft_next_line(char *line)
 	i = 0;
 	while (line[i] != '\n' && line[i])
 		i++;
-	if (!line[i] || !line[1])
+	if (!line[i] || !line[i + 1])
 		return (NULL);
 	next_line = ft_substr(line, i + 1, ft_strlen(line) - i);
 	if (!next_line)
+	{
 		free(next_line);
+		next_line = NULL;
+	}
 	line[i + 1] = '\0';
 	return (next_line);
 }
@@ -59,19 +62,18 @@ char	*get_next_line(int fd)
 {
 	char		*line;
 	char		*buf;
-	static char	*next_line;
+	static char	*next_line[FOPEN_MAX];
 
-	if (fd < 0 || BUFFER_SIZE <= 0)
+	if (fd < 0 || BUFFER_SIZE <= 0 || FOPEN_MAX <= 0)
 		return (NULL);
 	buf = (char *)malloc(sizeof(char) * (BUFFER_SIZE + 1));
 	if (!buf)
 		return (NULL);
-	line = ft_new_line(fd, buf, next_line);
+	line = ft_new_line(fd, buf, next_line[fd]);
 	free(buf);
-	buf = NULL;
 	if (!line)
 		return (NULL);
-	next_line = ft_next_line(line);
+	next_line[fd] = ft_next_line(line);
 	return (line);
 }
 /* #include <stdio.h>
@@ -89,11 +91,11 @@ void	print_line(const char *line)
 		{
 			if (line[i] == '\n')
 			{
-				write(1, RED, 5);  // Comienza el texto rojo
+				write(1, RED, 5);
 				write(1, "\\", 1);
-				write(1, "n", 1);    // Imprime "n" en rojo
-				write(1, RESET, 4); // Resetea el color
-				write(1, "\n", 1);   // Imprime un salto de línea real
+				write(1, "n", 1);
+				write(1, RESET, 4);
+				write(1, "\n", 1);
 			}
 			else
 			{
@@ -106,23 +108,57 @@ void	print_line(const char *line)
 int	main(void)
 {
 	int		fd;
+	int		fd2;
 	char	*line;
+	char	*line2;
 
-	fd = open("prueba.txt", 0); // Asegúrate de que el archivo "test.txt" exista
-	if (fd < 0)
+	fd = open("prueba.txt", O_RDONLY);
+	fd2 = open("prueba2.txt", O_RDONLY);
+
+	if (fd < 0 || fd2 < 0)
 	{
 		perror("Error opening file");
 		return (1);
 	}
+
 	line = get_next_line(fd);
-	while (line)
+	line2 = get_next_line(fd2);
+
+	while (line || line2)
+	{
+		if (line)
+		{
+			print_line(line);
+			free(line);
+			line = get_next_line(fd);
+		}
+
+		if (line2)
+		{
+			print_line(line2);
+			free(line2);
+			line2 = get_next_line(fd2);
+		}
+	}
+	printf("%s", line);
+	print_line(line);
+	printf("%s", line2);
+	print_line(line2);
+
+	if (line)
 	{
 		print_line(line);
-		free(line); // Liberar la memoria asignada para la línea
-		line = get_next_line(fd);
+		free(line);
 	}
-	print_line(line);
-	printf("%s", line);
+	if (line2)
+	{
+		print_line(line2);
+		free(line2);
+	}
+
 	close(fd);
+	close(fd2);
+
 	return (0);
-} */
+}
+ */
