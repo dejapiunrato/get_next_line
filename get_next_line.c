@@ -6,7 +6,7 @@
 /*   By: psevilla <psevilla@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/15 16:55:07 by psevilla          #+#    #+#             */
-/*   Updated: 2024/10/29 21:23:23 by psevilla         ###   ########.fr       */
+/*   Updated: 2024/11/20 18:29:09 by psevilla         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,7 +52,7 @@ static char	*ft_next_line(char *line)
 	if (!next_line)
 	{
 		free(next_line);
-		next_line == NULL;
+		next_line = NULL;
 	}
 	line[i + 1] = '\0';
 	return (next_line);
